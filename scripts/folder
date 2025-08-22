@@ -1,1 +1,17 @@
+#project initializing , we are going to use snowflake :
+creating databses - dwh 
+schemas - bronze(raw data) , silver ( stage data) , gold ( like ETL layer , consumer layer) #
 
+
+
+
+-- create databse command--
+create database dwh;
+
+-- use the database --
+use database dwh;
+
+---creating the schemas --
+create schema bronze;
+create schema silver;
+create schema gold;
