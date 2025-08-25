@@ -13,6 +13,7 @@ cst_create_date date
 
 create or replace table dwh.silver.crm_prd_info(
 prd_id int,
+catg_id varchar(10),
 prd_key varchar(30),
 prd_nm varchar(30),
 prd_cost int,
