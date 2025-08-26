@@ -36,3 +36,32 @@ LEAD(PRD_START_DT) OVER (PARTITION BY PRD_KEY ORDER BY PRD_END_DT)-1
 ) AS PRD_END_DT
 FROM CRM_PRD_INFO
 ;
+
+--------------------------------------------------------------------------------crm_sales_details
+insert into SILVER.CRM_SALES_DETAILS(
+sls_ord_num,
+sls_cust_id,
+sls_prd_key,
+sls_quantity,sls_order_dt,sls_ship_dt,sls_due_dt,sls_sales,sls_price
+)
+select 
+sls_ord_num,
+sls_cust_id,
+sls_prd_key,
+sls_quantity,
+case
+ when sls_order_dt = 0 or length(sls_order_dt) != 8 then null 
+ else cast(cast(sls_order_dt as varchar) as date )
+end as sls_order_dt ,
+to_date(sls_ship_dt::text, 'YYYYMMDD') as sls_ship_dt,
+to_date(sls_due_dt::text, 'YYYYMMDD') as sls_due_dt,
+case
+   when sls_sales<= 0 or sls_sales != sls_quantity * abs(sls_price)
+   then sls_quantity * abs(sls_price )
+   else sls_sales
+end as sls_sales,
+case 
+   when sls_price <=0 or sls_price != sls_sales/ sls_quantity then sls_sales/sls_quantity
+   else sls_price::FLOAT
+end as sls_price,
+from crm_sales_details;
