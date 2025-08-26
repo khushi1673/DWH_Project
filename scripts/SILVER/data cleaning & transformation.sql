@@ -20,7 +20,7 @@ WHERE CST_ID IS NOT NULL)
 WHERE ID_RANK =1 ;
 
 
---------------------------------------------------------------------------------CRM_PRD_INFO
+--------------------------------------------------------------------------------CRM_PRD_INFO-------------------------
 INSERT INTO DWH.SILVER.CRM_PRD_INFO(
 PRD_ID,PRD_NM,CATG_ID,PRD_KEY,PRD_COST,PRD_LINE,PRD_START_DT,PRD_END_DT)
 SELECT 
@@ -37,7 +37,8 @@ LEAD(PRD_START_DT) OVER (PARTITION BY PRD_KEY ORDER BY PRD_END_DT)-1
 FROM CRM_PRD_INFO
 ;
 
---------------------------------------------------------------------------------crm_sales_details
+
+------------------------------------------------------------crm_sales_details-----------------------------------------
 insert into SILVER.CRM_SALES_DETAILS(
 sls_ord_num,
 sls_cust_id,
@@ -65,3 +66,42 @@ case
    else sls_price::FLOAT
 end as sls_price,
 from crm_sales_details;
+
+--------------------------------------------------------ERP_CUST_AZ12----------------------------------------
+
+INSERT INTO SILVER.ERP_CUST_AZ12(
+GEN,CID,BDATE
+)
+select 
+case 
+when upper(TRIM(GEN)) in ('F','FEMALE')  THEN 'Female' 
+WHEN upper(TRIM(GEN)) in ('M','MALE')  THEN 'Male' 
+ELSE 'Unknown' 
+END AS GEN,
+RIGHT(CID,5) AS CID,
+case
+when bdate > current_date then null
+else bdate
+end as bdate
+FROM ERP_CUST_AZ12;
+----------------------------------------------------------------------------ERP_LOC_A101----------------------------
+
+
+INSERT INTO SILVER.ERP_LOC_A101(CID,CNTRY)
+SELECT 
+RIGHT(CID,5) AS CID, 
+CASE
+WHEN TRIM(cntry) = ' ' OR cntry IS NULL THEN 'n/a'
+ELSE TRIM(CNTRY)
+END AS CNTRY
+FROM ERP_LOC_A101 ;
+
+--------------------------------------------------ERP_X_CAT_G1V2------------------------------------------
+
+INSERT INTO SILVER.ERP_X_CAT_G1V2(ID,CAT, SUBCAT,MAINTENANCE)
+SELECT 
+TRIM(ID) AS ID,
+TRIM(CAT) AS CAT,
+TRIM(SUBCAT) AS SUBCAT,
+TRIM(MAINTENANCE) AS MAINTENANCE
+FROM ERP_PX_CAT_G1V2;
