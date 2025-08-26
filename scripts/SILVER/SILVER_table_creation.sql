@@ -26,9 +26,9 @@ create or replace table dwh.silver.crm_sales_details(
 sls_ord_num varchar(30)
 ,sls_prd_key varchar(30)
 ,sls_cust_id int
-,sls_order_dt int
-,sls_ship_dt int
-,sls_due_dt int
+,sls_order_dt date
+,sls_ship_dt date
+,sls_due_dt date
 ,sls_sales int
 ,sls_quantity int
 ,sls_price int );
