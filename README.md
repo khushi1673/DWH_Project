@@ -1,5 +1,5 @@
 # DWH_Project
-Building DWH with SQL server, ETL processes , data modelling  and data analytics .
+Building DWH with Azure Blob storage, Snowflake, ETL processes , data modelling  and data analytics .
 
 ---
 ##  Data Architecture
