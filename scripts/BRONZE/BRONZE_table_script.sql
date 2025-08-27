@@ -4,12 +4,12 @@ cst_key varchar(30),
 cst_firstname varchar(30),
 cst_lastname varchar(30),
 cst_marital_status varchar(1),
-cst_gndr varchar(1),
+cst_gndr varchar(10),
 cst_create_date date
-)
+);
 
 create or replace table dwh.bronze.crm_prd_info(
-prd_id int,
+prd_id varchar(30),
 prd_key varchar(50),
 prd_nm varchar(50),
 prd_cost int,
@@ -33,7 +33,7 @@ sls_ord_num varchar(30)
 create or replace table dwh.bronze.erp_cust_AZ12(
 CID varchar(30),
 BDATE date,
-GEN varchar(10) )
+GEN varchar(1) )
 
 
 create or replace table dwh.bronze.erp_LOC_A101(
@@ -41,7 +41,7 @@ CID VARCHAR(30),
 CNTRY VARCHAR(30))
 
 
-create or replace table dwh.bronze.erp_PX_CAT_G1V2(
+create or replace table dwh.bronze.erp_X_CAT_G1V2(
 ID VARCHAR(10)
 ,CAT VARCHAR(30)
 ,SUBCAT VARCHAR(30)
