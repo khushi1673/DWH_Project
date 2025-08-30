@@ -35,7 +35,7 @@ Develop a modern data warehouse using Snowflake to consolidate sales data, enabl
 - **Documentation**: Provide clear documentation of the data model to support both business stakeholders and analytics teams.
 
 ---
-
+* For next project *
 ### BI: Analytics & Reporting (Data Analysis)
 
 #### Objective
